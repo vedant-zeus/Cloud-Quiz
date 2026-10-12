@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cloudquiz_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cloudquiz}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cloudquiz_dev_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-cloudquiz_dev}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5434}:5432"
+    volumes:
+      - cloudquiz_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cloudquiz} -d ${POSTGRES_DB:-cloudquiz_dev}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    container_name: cloudquiz_redis
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6380}:6379"
+    volumes:
+      - cloudquiz_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  cloudquiz_pgdata:
+    name: cloudquiz_pgdata
+  cloudquiz_redisdata:
+    name: cloudquiz_redisdata

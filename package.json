@@ -1,0 +1,38 @@
+{
+  "name": "cloudquiz",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CloudQuiz - Cloud-native Quiz Competition Platform",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "dev:backend": "npm run dev --workspace=@cloudquiz/backend",
+    "dev:frontend": "npm run dev --workspace=@cloudquiz/frontend",
+    "build": "npm run build --workspaces",
+    "build:backend": "npm run build --workspace=@cloudquiz/backend",
+    "build:frontend": "npm run build --workspace=@cloudquiz/frontend",
+    "start:backend": "npm run start --workspace=@cloudquiz/backend",
+    "test": "npm run test --workspaces",
+    "test:backend": "npm run test --workspace=@cloudquiz/backend",
+    "test:frontend": "npm run test --workspace=@cloudquiz/frontend",
+    "lint": "eslint \"apps/**/src/**/*.{ts,tsx}\" \"apps/backend/tests/**/*.ts\"",
+    "typecheck": "npm run typecheck --workspaces",
+    "prisma:generate": "npm run prisma:generate --workspace=@cloudquiz/backend",
+    "prisma:migrate": "npm run prisma:migrate --workspace=@cloudquiz/backend",
+    "prisma:migrate:deploy": "npm run prisma:migrate:deploy --workspace=@cloudquiz/backend",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
+  },
+  "keywords": [
+    "cloudquiz",
+    "quiz",
+    "realtime",
+    "education",
+    "competition"
+  ],
+  "author": "",
+  "license": "ISC"
+}
